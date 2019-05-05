@@ -118,6 +118,7 @@
     <ClInclude Include="lexical_analyzer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lexical_analyzer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
