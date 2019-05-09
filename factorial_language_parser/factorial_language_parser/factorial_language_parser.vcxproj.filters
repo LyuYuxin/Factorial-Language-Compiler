@@ -18,12 +18,18 @@
     <ClInclude Include="lexical_analyzer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="parser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="lexical_analyzer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="parser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

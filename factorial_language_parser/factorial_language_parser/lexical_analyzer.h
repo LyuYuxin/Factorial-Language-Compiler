@@ -16,28 +16,31 @@ typedef struct STableEntry{
 	}
 }STableEntry;
 
+enum m_typeIndexTable {
+    BEGIN = 1, END, INTEGER, IF, THEN, ELSE, FUNCTION, READ,
+    WRITE, IDENTIFIER, CONSTANT, EQUAL, NOT_EQUAL, LESS_EQUAL,
+    LESS, MORE_EQUAL, MORE, MINUS, MUTIPLY, ASSIGN, LEFT_BRACKET,
+    RIGHT_BRACKET, SEMICOLON, END_OF_LINE, END_OF_FILE
+};
+
+
 class Lex {
 public:
 	Lex(istream&);
 	vector<STableEntry> lexAnalyze();
 	void writeToFile();
+	int reserve(const string&);
+
 private:
 	char getch();
 	char getnbch(char&);
 	bool isLetter(char);
 	bool isDigit(char);
 	void retract();
-	int reserve(const string&);
 	//int symbol(string&);
 	//int constant(string&);
 	void error(int);
 
-	enum m_typeIndexTable {
-		begin = 1, end, integer, If, then, Else, function, read,
-		write, identifier, constant, equal, not_equal, less_equal,
-		less, more_equal, more, minus, mutiply, assign, left_bracket,
-		right_bracket, semicolon, end_of_line, end_of_file
-	};
 
 	enum {
 		colonerror, invalidch

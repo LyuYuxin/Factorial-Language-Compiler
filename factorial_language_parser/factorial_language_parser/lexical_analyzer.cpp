@@ -6,15 +6,15 @@
 Lex::Lex(istream & file):
 	m_file(file),m_errorInformation("file.error"), m_curline(1)
 {
-	m_reservedWordTable["begin"] = begin;
-	m_reservedWordTable["end"] = end;
-	m_reservedWordTable["integer"] = integer;
-	m_reservedWordTable["if"] = If;
-	m_reservedWordTable["then"] = then;
-	m_reservedWordTable["else"] = Else;
-	m_reservedWordTable["function"] = function;
-	m_reservedWordTable["read"] = read;
-	m_reservedWordTable["write"] = write;
+	m_reservedWordTable["begin"] = BEGIN;
+	m_reservedWordTable["end"] = END;
+	m_reservedWordTable["integer"] = INTEGER;
+	m_reservedWordTable["if"] = IF;
+	m_reservedWordTable["then"] = THEN;
+	m_reservedWordTable["else"] = ELSE;
+	m_reservedWordTable["function"] = FUNCTION;
+	m_reservedWordTable["read"] = READ;
+	m_reservedWordTable["write"] = WRITE;
 	if (!m_errorInformation) {
 		cerr << "open error file failed !" << endl;
 	}
@@ -64,7 +64,7 @@ Lex::lexAnalyze() {
 		int num = reserve(token);
 		if (num)m_output.push_back(STableEntry(token, num));
 		else {
-			m_output.push_back(STableEntry(token, identifier));
+			m_output.push_back(STableEntry(token, IDENTIFIER));
 			m_identifierTable.insert(token);
 		}
 		break;
@@ -75,42 +75,42 @@ Lex::lexAnalyze() {
 			token += ch;
 			ch = getch();
 		}
-		m_output.push_back(STableEntry(token, constant));
+		m_output.push_back(STableEntry(token, CONSTANT));
 		retract();
 		break;
 	case '=':
 		token = ch;
-		m_output.push_back(STableEntry(token, equal));
+		m_output.push_back(STableEntry(token, EQUAL));
 		break;
 	case '-':
 		token += ch;
-		m_output.push_back(STableEntry(token, minus));
+		m_output.push_back(STableEntry(token, MINUS));
 		break;
 	case '*':
 		token += ch;
-		m_output.push_back(STableEntry(token, mutiply));
+		m_output.push_back(STableEntry(token, MUTIPLY));
 		break;
 	case '(':
 		token += ch;
-		m_output.push_back(STableEntry(token, left_bracket));
+		m_output.push_back(STableEntry(token, LEFT_BRACKET));
 		break;
 	case')':
 		token += ch;
-		m_output.push_back(STableEntry(token, right_bracket));
+		m_output.push_back(STableEntry(token, RIGHT_BRACKET));
 		break;
 	case '<':
 		token += ch;
 		ch = getch();
 		if (ch == '=') {
 			token += ch;
-			m_output.push_back(STableEntry(token, less_equal));
+			m_output.push_back(STableEntry(token, LESS_EQUAL));
 		}
 		else if(ch == '>'){
 			token += ch;
-			m_output.push_back(STableEntry(token, not_equal));
+			m_output.push_back(STableEntry(token, NOT_EQUAL));
 		}
 		else {
-			m_output.push_back(STableEntry(token, equal));
+			m_output.push_back(STableEntry(token, EQUAL));
 			retract();
 		}
 		break;
@@ -119,11 +119,11 @@ Lex::lexAnalyze() {
 		ch = getch();
 		if (ch == '=') {
 			token += ch;
-			m_output.push_back(STableEntry(token, more_equal));
+			m_output.push_back(STableEntry(token, MORE_EQUAL));
 		}
 		else {
 			retract();
-			m_output.push_back(STableEntry(token, more));
+			m_output.push_back(STableEntry(token, MORE));
 		}
 		break;
 
@@ -132,7 +132,7 @@ Lex::lexAnalyze() {
 		ch = getch();
 		if (ch == '=') {
 			token += ch;
-			m_output.push_back(STableEntry(token, assign));
+			m_output.push_back(STableEntry(token, ASSIGN));
 		}
 		else {
 			error(colonerror);
@@ -140,19 +140,19 @@ Lex::lexAnalyze() {
 		break;
 	case ';':
 		token += ch;
-		m_output.push_back(STableEntry(token, semicolon));
+		m_output.push_back(STableEntry(token, SEMICOLON));
 		break;
 	case '\n':
 		token ="EOLN";
-		m_output.push_back(STableEntry(token, end_of_line));
+		m_output.push_back(STableEntry(token, END_OF_LINE));
 		++m_curline;
 		break;
-	default:
+	default: 
 		error(invalidch);
 		break;
 	}
 	}
-	m_output.push_back(STableEntry("EOF", end_of_file));
+	m_output.push_back(STableEntry("EOF", END_OF_FILE));
 
 	return m_output;
 
