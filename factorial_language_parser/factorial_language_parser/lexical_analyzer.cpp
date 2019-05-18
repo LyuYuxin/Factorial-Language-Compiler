@@ -41,7 +41,6 @@ Lex::lexAnalyze() {
 	while (m_file>>noskipws>>ch) {
 	string token;
 	ch = getnbch(ch);
-	cout << ch;
 	switch (ch) {
 	case 'a':case'b':case'c':case'd':case'e':
 	case'f':case'g':case'h':case'i':case'j':

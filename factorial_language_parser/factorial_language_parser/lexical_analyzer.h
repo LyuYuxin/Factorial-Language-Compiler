@@ -24,6 +24,8 @@ enum m_typeIndexTable {
 };
 
 
+
+
 class Lex {
 public:
 	Lex(istream&);

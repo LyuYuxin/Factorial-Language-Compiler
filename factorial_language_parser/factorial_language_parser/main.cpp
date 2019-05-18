@@ -1,6 +1,7 @@
 #include<fstream>
 #include<iostream>
 #include"lexical_analyzer.h"
+#include"parser.h"
 using namespace std;
 
 int main() {
@@ -9,7 +10,10 @@ int main() {
 	if (!in.is_open())
 		cerr << "open input file error!" << endl;
 	Lex lex(in);
-	lex.lexAnalyze();
+
+    vector<STableEntry> temp = lex.lexAnalyze();
+    Parser parser(temp);
+    parser.processInput();
 	lex.writeToFile();
 	return 0;
 }
