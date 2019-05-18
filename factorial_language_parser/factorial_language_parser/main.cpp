@@ -15,5 +15,6 @@ int main() {
     Parser parser(temp);
     parser.processInput();
 	lex.writeToFile();
+    parser.writeToFile();
 	return 0;
 }

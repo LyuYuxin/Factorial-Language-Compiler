@@ -50,6 +50,8 @@ public:
 	Parser(const vector<STableEntry>&);
 	~Parser();
 	void processInput();
+    void writeToFile();
+
 
 private:
 	vector<STableEntry>::const_iterator m_curWord;
@@ -118,5 +120,4 @@ private:
     void advance();
     void error(int errorkind);
     int getLastVariableOffset();
-
 };
