@@ -4,10 +4,10 @@
 #include<iomanip>
 
 Lex::Lex(istream & file):
-	m_file(file),m_errorInformation("file.error"), m_curline(1)
+	m_file(file),m_errorInformation("Lex_output.error"), m_curline(1)
 {
 	m_reservedWordTable["begin"] = BEGIN;
-	m_reservedWordTable["end"] = END;
+	m_reservedWordTable["end"] = END;  
 	m_reservedWordTable["integer"] = INTEGER;
 	m_reservedWordTable["if"] = IF;
 	m_reservedWordTable["then"] = THEN;
@@ -25,12 +25,16 @@ void
 Lex::writeToFile() {
 	vector<STableEntry>::iterator it;
 	ofstream outputFile("output.dyd");
-
+    ofstream outputdys("output.dys");
 	for (it = m_output.begin(); it != m_output.end(); ++it)
 	{
 		const char * str = it->name.c_str();
 		outputFile << setw(16) <<setfill(' ')<< it->name << "  ";
 		outputFile << setw(2) <<setfill('0')<< it->type << endl;
+
+        outputdys << setw(16) << setfill(' ') << it->name << "  ";
+        outputdys << setw(2) << setfill('0') << it->type << endl;
+
 	}
 }
 

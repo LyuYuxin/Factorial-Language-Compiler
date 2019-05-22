@@ -1,7 +1,7 @@
 #include"parser.h"
 #include<iostream>
 Parser::Parser(const vector<STableEntry> & input)
-    :m_outputError("error.error"), m_outputFunctionTable("functionTable.pro"), m_outputVaribleTable("variableTable.var")
+    :m_outputError("Parser_output.error"), m_outputFunctionTable("functionTable.pro"), m_outputVaribleTable("variableTable.var")
 {    
 	if (!input.size())cerr << "input is empty!" << flush;
 	m_curWord = input.begin();
@@ -291,6 +291,8 @@ Parser::A(SprocessNameEntry*func, const string&paraname) {
                 error(LACK_PARAMETER_DECLARATION);//必须要有形参声明
                 return 0;
             }
+            func->fadr = getLastVariableOffset();
+
             if (m_curWord->type == SEMICOLON) {
                 advance();
             }
@@ -330,7 +332,7 @@ Parser::A_(SprocessNameEntry*func) {
         return;
     case INTEGER:
     {
-        C();
+        C(func->pname);
 
         if (m_curWord->type == SEMICOLON) {
             advance();
@@ -377,7 +379,7 @@ Parser::C_(const string &funcname, string *s) {
         SvariableNameEntry* v_entry = new SvariableNameEntry(m_curWord->name, funcname, VARIABLE, m_curLevel);
         m_variableNameTable.push_back(v_entry);
         advance();
-        if (*s == "")
+        if (s != NULL && *s == "")
             *s = v_entry->name;
     }
     else if (m_curWord->type == FUNCTION) {//函数
@@ -984,7 +986,7 @@ Parser::writeToFile() {
             << "ladr" << endl;
 
         for (it = m_processNameTable.begin(); it != m_processNameTable.end(); ++it) {
-            m_outputVaribleTable << (*it)->pname << "    " << (*it)->ptype << "    " << (*it)->plev << "    " << (*it)->fadr << "    "
+            m_outputFunctionTable << (*it)->pname << "    " << (*it)->ptype << "    " << (*it)->plev << "    " << (*it)->fadr << "    "
                 << (*it)->ladr << endl;
         }
 
