@@ -173,8 +173,6 @@ Parser::C_() {
                 error(LACK_LEFT_BRACKET);
                 advance();
                 return;
-
-
             }
 
             if (m_curWord->type == IDENTIFIER) {//пн╡н
@@ -233,7 +231,7 @@ Parser::C_() {
             return;
         }
         else {
-            error(VOID_CHARACTER);
+            error(UNDEFINED_IDENTIFIER);
             advance();
         }
 }
@@ -480,6 +478,10 @@ Parser::B(const string&funcname) {
     if (m_curWord->type == SEMICOLON) {
             advance();
     }
+    else if (m_curWord->type == END) {
+        error(LACK_SEMICOLON);
+        return;
+    }
        else {
             error(LACK_SEMICOLON);
             advance();
@@ -610,7 +612,7 @@ Parser::D(const string& funcname) {
             advance();
         }
         else {
-            error(VOID_CHARACTER);
+            error(LACK_EXPRESSION);
             advance();
         }
         E();
@@ -766,11 +768,11 @@ Parser::E() {
     break;
     case SEMICOLON: case LESS: case LESS_EQUAL: case NOT_EQUAL: case MORE: case MORE_EQUAL:
     case THEN: case ELSE: case EQUAL: case RIGHT_BRACKET:
-        error(VOID_CHARACTER);
+        error(LACK_IDENTIFIER);
         return 0;
    
     default: 
-        error(VOID_CHARACTER);
+        error(LACK_IDENTIFIER);
         advance();
  }
     return 1;

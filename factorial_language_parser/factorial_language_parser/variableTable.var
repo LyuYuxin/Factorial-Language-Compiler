@@ -1,4 +1,5 @@
 name    adr    kind    level    processname    type
-k    0    0    1    subProgram    integer
+s    0    0    1    subProgram    integer
+d    0    0    1    subProgram    integer
 n    0    0    2    F    integer
 s    0    0    2    F    integer

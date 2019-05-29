@@ -39,8 +39,6 @@ private:
 	bool isLetter(char);
 	bool isDigit(char);
 	void retract();
-	//int symbol(string&);
-	//int constant(string&);
 	void error(int);
 
 
@@ -54,8 +52,6 @@ private:
 	int m_curline;
 
 	map<string, int> m_reservedWordTable;
-	set<string> m_identifierTable;
-	map<int, int> m_constantTable;
 };
 
 

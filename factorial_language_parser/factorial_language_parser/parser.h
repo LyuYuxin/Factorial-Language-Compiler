@@ -9,18 +9,18 @@ using std::string;
 
 class Parser;
 
-typedef struct node{
-	string word;
-	vector<node*> child;
-    bool isTerminal;
-    node(const string& str, bool status = false) :
-    word(str), isTerminal(status){}
-}Snode;
+//typedef struct node{
+//	string word;
+//	vector<node*> child;
+//    bool isTerminal;
+//    node(const string& str, bool status = false) :
+//    word(str), isTerminal(status){}
+//}Snode;
 
 
-enum VariableOrPara {
-    VARIABLE, PARAMETER
-};
+//enum VariableOrPara {
+//    VARIABLE, PARAMETER
+//};
 
 
 typedef struct variableNameEntry {
@@ -44,6 +44,11 @@ typedef struct processNameEntry {
     processNameEntry(const string &name, int lev)
         :pname(name), ptype("integer"), plev(lev){}
 }SprocessNameEntry;
+
+enum {
+    VARIABLE,
+    PARAMETER
+};
 
 class Parser{
 public:

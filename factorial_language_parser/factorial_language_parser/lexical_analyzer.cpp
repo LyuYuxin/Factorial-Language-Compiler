@@ -68,7 +68,6 @@ Lex::lexAnalyze() {
 		if (num)m_output.push_back(STableEntry(token, num));
 		else {
 			m_output.push_back(STableEntry(token, IDENTIFIER));
-			m_identifierTable.insert(token);
 		}
 		break;
 	}
@@ -153,7 +152,7 @@ Lex::lexAnalyze() {
 	default: 
 		error(invalidch);
 		break;
-	}
+	} 
 	}
 	m_output.push_back(STableEntry("EOF", END_OF_FILE));
 
